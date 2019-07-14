@@ -1,15 +1,15 @@
 variable "key_name" {
-  default = "stefan-personal-aws"
+  default = "private-passwd"
 }
 
 variable "pvt_key" {
-  default = "/home/stefan/.ssh/stefan-personal-aws.pem"
+  default = "/Users/titan/.ssh/id_rsa"
 }
 
-variable "us-east-zones" {
-  default = ["us-east-1a", "us-east-1b"]
+variable "us-west-zones" {
+  default = ["us-west-2a", "us-west-2b"]
 }
 
 variable "sg-id" {
-  default = "sg-4e1b7b39"
+  default = "sg-22ad455c"
 }
