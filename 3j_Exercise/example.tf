@@ -20,12 +20,12 @@ locals {
 
 module "backend" {
   source           = "./Backend"
-  region           = "${local.regions[terraform.workspace]}"
-  number_instances = "${local.instance_count[terraform.workspace]}"
+  #region           = "${local.regions[terraform.workspace]}"
+  #number_instances = "${local.instance_count[terraform.workspace]}"
 }
 
 module "frontend" {
   source           = "./Frontend"
-  region           = "${local.regions[terraform.workspace]}"
-  number_instances = "${local.instance_count[terraform.workspace]}"
+  #region           = "${local.regions[terraform.workspace]}"
+  #number_instances = "${local.instance_count[terraform.workspace]}"
 }
