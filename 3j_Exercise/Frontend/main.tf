@@ -2,6 +2,8 @@ provider "aws" {
   region = "${var.region}"
 }
 
+data "aws_availability_zones" "this" {}
+
 resource "aws_spot_instance_request" "frontend" {
   count                  = "${var.number_instances}"
   availability_zone      = "${data.aws_availability_zones.this.names[count.index]}"
@@ -22,7 +24,7 @@ resource "aws_spot_instance_request" "frontend" {
     user        = "ubuntu"
     type        = "ssh"
     private_key = "${file(var.pvt_key)}"
-    host        = "${aws_spot_instance_request.frontend.public_ip}"
+    host        = "${aws_spot_instance_request.frontend.*.public_ip}"
   }
 
   provisioner "file" {

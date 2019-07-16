@@ -3,6 +3,7 @@ provider "aws" {
 }
 
 data "aws_availability_zones" "this" {}
+
 resource "aws_spot_instance_request" "backend" {
   count                  = "${var.number_instances}"
   availability_zone      = "${data.aws_availability_zones.this.names[count.index]}"
@@ -24,7 +25,7 @@ resource "aws_spot_instance_request" "backend" {
       user        = "ubuntu"
       type        = "ssh"
       private_key = "${file(var.pvt_key)}"
-      host        = "${aws_spot_instance_request.backend.public_ip}"
+      host        = "${aws_spot_instance_request.backend.*.public_ip}"
     }
   }
 }
@@ -39,7 +40,7 @@ resource "aws_spot_instance_request" "backend" {
 
 resource "null_resource" "ansible-main" {
   provisioner "local-exec" {
-    command = "ssh-keyscan -H ${aws_spot_instance_request.backend.public_ip} >> ~/.ssh/known_hosts && ansible-playbook -e sshKey=${var.pvt_key} -i '${aws_spot_instance_request.backend.public_ip},' ./ansible/setup-backend.yaml -v"
+    command = "ssh-keyscan -H ${aws_spot_instance_request.backend.*.public_ip} >> ~/.ssh/known_hosts && ansible-playbook -e sshKey=${var.pvt_key} -i '${aws_spot_instance_request.backend.*.public_ip},' ./ansible/setup-backend.yaml -v"
   }
 
   depends_on = ["aws_spot_instance_request.backend"]
