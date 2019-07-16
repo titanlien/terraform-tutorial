@@ -1,9 +1,10 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "${var.region}"
 }
 
 resource "aws_spot_instance_request" "frontend" {
-  availability_zone      = "us-west-2a"
+  count                  = "${var.number_instances}"
+  availability_zone      = "${data.aws_availability_zones.this.names[count.index]}"
   ami                    = "ami-0b37e9efc396e4c38"
   instance_type          = "t3a.micro"
   key_name               = "${var.key_name}"

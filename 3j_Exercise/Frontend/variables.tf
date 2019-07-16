@@ -13,3 +13,11 @@ variable "us-west-zones" {
 variable "sg-id" {
   default = "sg-22ad455c"
 }
+
+variable "number_instances" {
+  default = "1"
+}
+
+variable "region" {
+  default = "us-west-2"
+}
