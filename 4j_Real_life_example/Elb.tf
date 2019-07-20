@@ -6,8 +6,8 @@ module "elb" {
 
   name = "elb-example"
 
-  subnets         = ["${module.vpc.public_subnets}"]
-  security_groups = ["${aws_security_group.allow_http.id}"]
+  subnets         = [module.vpc.public_subnets]
+  security_groups = [aws_security_group.allow_http.id]
   internal        = false
 
   listener = [
@@ -34,3 +34,4 @@ module "elb" {
     Environment = "dev"
   }
 }
+

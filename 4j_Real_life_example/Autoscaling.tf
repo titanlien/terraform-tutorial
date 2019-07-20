@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
   description = "Allow inbound traffic"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port   = 80
@@ -34,8 +34,8 @@ module "example_asg" {
 
   image_id        = "ami-9df393e2"
   instance_type   = "t2.micro"
-  security_groups = ["${aws_security_group.allow_http.id}"]
-  load_balancers  = ["${module.elb.this_elb_id}"]
+  security_groups = [aws_security_group.allow_http.id]
+  load_balancers  = [module.elb.this_elb_id]
 
   root_block_device = [
     {
@@ -46,7 +46,7 @@ module "example_asg" {
 
   # Auto scaling group
   asg_name                  = "example-asg"
-  vpc_zone_identifier       = ["${module.vpc.public_subnets}"]
+  vpc_zone_identifier       = [module.vpc.public_subnets]
   health_check_type         = "EC2"
   min_size                  = 0
   max_size                  = 1
@@ -66,3 +66,4 @@ module "example_asg" {
     },
   ]
 }
+

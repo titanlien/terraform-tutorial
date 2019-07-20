@@ -1,13 +1,13 @@
 resource "aws_security_group" "allow_sql" {
   name        = "allow_sql"
   description = "Allow inbound traffic"
-  vpc_id      = "${module.vpc.vpc_id}"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.allow_http.id}"]
+    security_groups = [aws_security_group.allow_http.id]
   }
 
   egress {
@@ -39,7 +39,7 @@ module "db" {
   password = "YourPwdShouldBeLongAndSecure!"
   port     = "3306"
 
-  vpc_security_group_ids = ["${aws_security_group.allow_sql.id}"]
+  vpc_security_group_ids = [aws_security_group.allow_sql.id]
 
   maintenance_window = "Mon:00:00-Mon:03:00"
   backup_window      = "03:00-06:00"
@@ -53,7 +53,7 @@ module "db" {
   }
 
   # DB subnet group
-  subnet_ids = ["${module.vpc.private_subnets}"]
+  subnet_ids = [module.vpc.private_subnets]
 
   # DB parameter group
   family = "mysql5.7"
@@ -61,3 +61,4 @@ module "db" {
   # Snapshot name upon DB deletion
   final_snapshot_identifier = "demodb"
 }
+

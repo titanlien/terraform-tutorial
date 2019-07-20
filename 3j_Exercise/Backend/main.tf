@@ -31,8 +31,9 @@ resource "aws_spot_instance_request" "backend" {
 }
 
 #resource "null_resource" "ansible-pre-tasks" {
+#  count     = "${var.number_instances}"
 #  provisioner "local-exec" {
-#    command = "ansible-playbook -e ssh-key=${var.pvt_key} -i '${aws_spot_instance_request.backend.public_ip},' ./ansible/pre-task.yml -v"
+#    command = "ssh-keyscan -H ${aws_spot_instance_request.backend[count.index].public_ip} >> ~/.ssh/known_hosts && cd Backend/ && ansible-playbook -e ssh-key=${var.pvt_key} -i '${aws_spot_instance_request.backend[count.index].public_ip},' ./ansible/pre-task.yml -v"
 #  }
 #
 #  depends_on = ["aws_spot_instance_request.backend"]
@@ -41,7 +42,7 @@ resource "aws_spot_instance_request" "backend" {
 resource "null_resource" "ansible-main" {
   count     = "${var.number_instances}"
   provisioner "local-exec" {
-    command = "ssh-keyscan -H ${aws_spot_instance_request.backend[count.index].public_ip} >> ~/.ssh/known_hosts && ansible-playbook -e sshKey=${var.pvt_key} -i '${aws_spot_instance_request.backend[count.index].public_ip},' ./ansible/setup-backend.yaml -v"
+    command = "ssh-keyscan -H ${aws_spot_instance_request.backend[count.index].public_ip} >> ~/.ssh/known_hosts && cd Backend/ && ansible-playbook -e sshKey=${var.pvt_key} -i '${aws_spot_instance_request.backend[count.index].public_ip},' ./ansible/setup-backend.yaml -v"
   }
 
   depends_on = ["aws_spot_instance_request.backend"]

@@ -28,14 +28,13 @@ resource "aws_spot_instance_request" "frontend" {
   }
 
   provisioner "file" {
-    source      = "./frontend"
+    source      = "./frontend/"
     destination = "~/"
   }
 
   provisioner "remote-exec" {
     inline = [
       "chmod +x ~/frontend/run_frontend.sh",
-      "cd ~/frontend",
       "sudo ~/frontend/run_frontend.sh",
     ]
   }
