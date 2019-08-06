@@ -46,7 +46,7 @@ module "example_asg" {
 
   # Auto scaling group
   asg_name                  = "example-asg"
-  vpc_zone_identifier       = [module.vpc.public_subnets]
+  vpc_zone_identifier       = module.vpc.public_subnets
   health_check_type         = "EC2"
   min_size                  = 0
   max_size                  = 1

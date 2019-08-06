@@ -6,7 +6,7 @@ module "elb" {
 
   name = "elb-example"
 
-  subnets         = [module.vpc.public_subnets]
+  subnets         = module.vpc.public_subnets
   security_groups = [aws_security_group.allow_http.id]
   internal        = false
 
