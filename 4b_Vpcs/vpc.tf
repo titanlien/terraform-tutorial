@@ -17,7 +17,7 @@ module "vpc" {
 
   tags = {
     Owner       = "user"
-    Environment = "terraform.workspace"
+    Environment = "${terraform.workspace}"
     Name        = "teffaform vpc"
   }
 }
