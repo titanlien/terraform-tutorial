@@ -10,11 +10,11 @@ data "aws_vpc" "default" {
 }
 
 data "aws_subnet_ids" "all" {
-  vpc_id = "${data.aws_vpc.default.id}"
+  vpc_id = data.aws_vpc.default.id
 }
 
 data "aws_security_group" "default" {
-  vpc_id = "${data.aws_vpc.default.id}"
+  vpc_id = data.aws_vpc.default.id
   name   = "default"
 }
 
@@ -68,7 +68,7 @@ module "example_asg" {
 
   # Auto scaling group
   asg_name                  = "example-asg"
-  vpc_zone_identifier       = ["${data.aws_subnet_ids.all.ids}"]
+  vpc_zone_identifier       = data.aws_subnet_ids.all.ids
   health_check_type         = "EC2"
   min_size                  = 0
   max_size                  = 1
@@ -97,8 +97,8 @@ module "elb" {
 
   name = "elb-example"
 
-  subnets         = ["${data.aws_subnet_ids.all.ids}"]
-  security_groups = ["${data.aws_security_group.default.id}"]
+  subnets         = data.aws_subnet_ids.all.ids
+  security_groups = [data.aws_security_group.default.id]
   internal        = false
 
   listener = [
@@ -123,3 +123,4 @@ module "elb" {
     Environment = "dev"
   }
 }
+
