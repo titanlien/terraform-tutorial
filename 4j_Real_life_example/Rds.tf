@@ -49,7 +49,7 @@ module "db" {
 
   tags = {
     Owner       = "user"
-    Environment = "dev"
+    Environment = "${terraform.workspace}"
   }
 
   # DB subnet group

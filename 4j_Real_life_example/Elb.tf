@@ -29,7 +29,7 @@ module "elb" {
 
   tags = {
     Owner       = "user"
-    Environment = "dev"
+    Environment = "${terraform.workspace}"
   }
 }
 
