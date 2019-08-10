@@ -8,5 +8,6 @@ module "kubernetes" {
 }
 
 output "connection-command" {
-  value = "${module.kubernetes.connect-string}"
+  value = module.kubernetes.connect-string
 }
+
