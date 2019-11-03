@@ -1,15 +1,15 @@
 terraform {
   backend "s3" {
-    bucket = "tfm-titan"
-    key    = "tutorial/terraform.tfstate"
-    region = "us-east-1"
+    bucket = "tf-tutorial"
+    key    = "3j/terraform.tfstate"
+    region = "eu-west-1"
   }
 }
 
 locals {
   regions = {
-    staging    = "us-west-2"
-    production = "us-west-2"
+    staging    = "eu-central-1"
+    production = "eu-central-1"
   }
 
   instance_count = {
