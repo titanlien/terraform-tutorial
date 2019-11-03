@@ -1,0 +1,23 @@
+variable "key_name" {
+  default = "private-passwd"
+}
+
+variable "pvt_key" {
+  default = "/Users/titan/.ssh/id_rsa"
+}
+
+variable "us-west-zones" {
+  default = ["us-west-2a", "us-west-2b"]
+}
+
+variable "sg-id" {
+  default = "sg-22ad455c"
+}
+
+variable "number_instances" {
+  default = "1"
+}
+
+variable "region" {
+  default = "us-west-2"
+}
