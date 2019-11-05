@@ -2,9 +2,9 @@ provider "aws" {
   region = "${local.regions[terraform.workspace]}"
 }
 
-resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
-  description = "Allow inbound traffic"
+resource "aws_security_group" "allow_ssh" {
+  name        = "allow_ssh"
+  description = "Allow port 22 inbound traffic"
   vpc_id      = module.vpc.vpc_id
 
   ingress {

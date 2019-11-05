@@ -1,0 +1,4 @@
+---
+
+master_ip: "{{ hostvars[groups['managers'][0]]['ansible_default_ipv4'].address | default(groups['managers'][0]) }}"
+LB_FLOATIP: "78.46.192.82"

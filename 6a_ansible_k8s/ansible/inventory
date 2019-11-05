@@ -1,0 +1,10 @@
+[managers]
+3.120.193.210
+
+[nodes]
+
+
+[kube-cluster:children]
+managers
+nodes
+
